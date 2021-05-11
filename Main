@@ -1,9 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QFileDialog, QHBoxLayout, QWidget, QVBoxLayout
 from PyQt5.QtGui import QIcon
-
-
-
 
 
 
@@ -31,7 +28,28 @@ class Example(QMainWindow):
         fileMenu.addAction(exitAct)
 
 
+        layout = QHBoxLayout()
+        layout2 = QVBoxLayout()
+        widgetTable = QWidget()
+        widgetTable.setStyleSheet("background-color: red;")
 
+        widgetStat = QWidget()
+        widgetStat.setLayout(layout2)
+
+        widget1 = QWidget()
+        widget1.setStyleSheet("background-color: yellow;")
+
+        widget2 = QWidget()
+        widget2.setStyleSheet("background-color: green;")
+
+        layout.addWidget(widgetTable, 3)
+        layout.addWidget(widgetStat, 1)
+        layout2.addWidget(widget1, 1)
+        layout2.addWidget(widget2, 1)
+
+        widget = QWidget()
+        widget.setLayout(layout)
+        self.setCentralWidget(widget)
 
         self.setGeometry(300, 300, 300, 200)
         self.setWindowTitle('Simple menu')
