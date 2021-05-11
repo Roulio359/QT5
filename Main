@@ -1,0 +1,55 @@
+import sys
+from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QFileDialog
+from PyQt5.QtGui import QIcon
+
+
+
+
+
+
+class Example(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        exitAct = QAction(QIcon(), '&Exit', self)
+        exitAct.setShortcut('Ctrl+Q')
+        exitAct.setStatusTip('Exit application')
+        exitAct.triggered.connect(qApp.quit)
+        openAct = QAction(QIcon(), '&OpenFiles', self)
+        openAct.setShortcut('Ctrl+o')
+        openAct.triggered.connect(self.openFile)
+
+        self.statusBar()
+
+        menubar = self.menuBar()
+        fileMenu = menubar.addMenu('&File')
+        fileMenu.addAction(openAct)
+        fileMenu.addSeparator()
+        fileMenu.addAction(exitAct)
+
+
+
+
+        self.setGeometry(300, 300, 300, 200)
+        self.setWindowTitle('Simple menu')
+        self.show()
+
+    def openFile(self):
+        fileName, _ = QFileDialog.getOpenFileName(self, "Open File", "","All Files (*);;Excel Files (*.xlsx) ;;CSV Files (*.csv)")
+        if fileName:
+            fichier = open(fileName, "r")
+            self.data = [i.split(";") for i in fichier.read().split("\n")]
+            print(self.data)
+
+
+def main():
+    app = QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    main()
